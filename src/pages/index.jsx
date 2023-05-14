@@ -2,14 +2,16 @@ import { useState, useContext } from 'react';
 import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 import styles from '../styles/Home.module.scss';
 
-import logoImg from '../../public/logo.svg';
+import logoImg from '../../public/logo.png';
 import { Card } from "@/components/Card";
 import { FormGroup } from "@/components/FormGroup";
 
 import { AuthContext } from '@/context/AuthContext';
+import { canSSRGuest } from '@/utils/canSSRGuest';
 
 export default function Home() {
   const { signIn } = useContext(AuthContext);
@@ -17,8 +19,14 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleLogin(event) {
+  const handleLogin = async(event) => {
     event.preventDefault();
+
+    if (email === '' || password === '') {
+      toast.warning('Preencha todos os campos.');
+      return;
+    }
+
     await signIn(email, password);
   }
 
@@ -27,7 +35,6 @@ export default function Home() {
       <Head>
         <title>Fã Clube - Faça seu login</title>
       </Head>
-
       
       <div className="container" style={{ position: 'relative', width: '100%' }}>
         <div className={styles.containerLogin} >
@@ -35,27 +42,17 @@ export default function Home() {
 
           <Card title="Login">
             <form onSubmit={handleLogin}>
-              <FormGroup label="Email: "
-                type="email"
-                for="inputEmail" 
-                placeholder="Digite seu email"
-                id="inputEmail"
-                value={email}
-                onChange={ e => setEmail(e.target.value) }
-              />
+              <FormGroup label="Email: " type="email" for="inputEmail" 
+                placeholder="Digite seu email" id="inputEmail"
+                value={email} onChange={ e => setEmail(e.target.value) } />
 
-              <FormGroup label="Senha: "
-                type="password"
-                for="inputPassword" 
-                placeholder="Sua senha"
-                id="inputPassword"
-                value={password}
-                onChange={ e => setPassword(e.target.value) }
-              />
+              <FormGroup label="Senha: " type="password" for="inputPassword" 
+                placeholder="Sua senha" id="inputPassword"
+                value={password} onChange={ e => setPassword(e.target.value) } />
 
-              <button className='btn btn-success'
+              <button className='btn btn-info'
                 type='submit' style={{ width: '100%'}}>
-                  Acessar
+                Acessar
               </button>
 
               <div className='link'>
@@ -67,9 +64,11 @@ export default function Home() {
         </div>
       </div>
     </>
-
-
-
-
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+});

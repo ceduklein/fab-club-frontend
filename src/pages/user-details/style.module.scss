@@ -1,8 +1,8 @@
-.containerLogin {
+.containerUserDetails {
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
-  margin-top: 100px;
+  margin-top: 20px;
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -12,11 +12,10 @@
 
   img {
     margin-bottom: 1rem;
-    border-radius: 50%;
   }
 
   form {
-    margin-top: -10px;
+    margin-top: -20px;
   }
 
   button {
@@ -24,12 +23,7 @@
   }
 }
 
-.link {
-  text-decoration: none;
-  color: black;
-  display: flex;
-  justify-content: center;
-
+.footerButtons {
+  width: 100%;
   margin-top: 1rem;
 }
-

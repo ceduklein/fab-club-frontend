@@ -2,7 +2,7 @@
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
-
+  margin-top: 20px;
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -12,12 +12,21 @@
 
   img {
     margin-bottom: 1rem;
+    border-radius: 50%;
+  }
+
+  form {
+    margin-top: -20px;
+  }
+
+  button {
+    margin-top: 1.3rem;
   }
 }
 
 .link {
   text-decoration: none;
-  color: white;
+  color: black;
   display: flex;
   justify-content: center;
 

@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
 import styles from './style.module.scss';
-import logoImg from '../../../public/logo.svg'
+import logoImg from '../../../public/logo.png'
 
 import { Card } from "@/components/Card";
 import { FormGroup } from "@/components/FormGroup";
+import { AuthContext } from '@/context/AuthContext';
+import { toast } from 'react-toastify';
 
 export default function SignUp() {
+  const { signUp } = useContext(AuthContext);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,14 +21,17 @@ export default function SignUp() {
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
 
-  async function handleSignUp(event) {
+  const handleSignUp = async(event) => {
     event.preventDefault();
-    console.log(nome)
-    console.log(email)
-    console.log(password)
-    console.log(dataNascimento)
-    console.log(cpf)
-    console.log(telefone)
+
+    if(nome === '' || email === '' || password === '' || 
+      cpf === '' || telefone === '' || dataNascimento === '') {
+      toast.warning('Preencha todos os campos.');
+      return;
+    }
+
+    let data = { nome, email, password, telefone, cpf, dataNascimento };
+    await signUp(data);
   }
 
   return(
@@ -39,7 +46,7 @@ export default function SignUp() {
           <Image alt="Logo Fulano&Beltrano" src={logoImg}/>
 
           <Card title="Cadastro">
-            <form onSubmit={handleSignUp}>
+            <form onSubmit={handleSignUp} >
               <FormGroup label="Nome: "type="text" for="inputNome" placeholder="Digite seu nome"
                 id="inputNome" value={nome} onChange={ e => setNome(e.target.value) } />
 
@@ -58,7 +65,7 @@ export default function SignUp() {
               <FormGroup label="Senha: " type="password" for="inputPassword" placeholder="Sua senha"
                 id="inputPassword" value={password} onChange={ e => setPassword(e.target.value) } />
 
-              <button className='btn btn-success'
+              <button className='btn btn-info'
                 type='submit' style={{ width: '100%'}}>
                   Cadastrar
               </button>
