@@ -49,7 +49,7 @@ export function NavBar() {
               </a>
             </li>
             <li className="nav-item" style={{marginLeft: '10%'}}>
-              <a className="nav-link" href="/solicitacoes">Solicitações</a>
+              <a className="nav-link" href="/card-requests">Solicitações</a>
             </li>
             </>
 

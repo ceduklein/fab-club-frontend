@@ -29,7 +29,6 @@ export default function SignUp() {
       toast.warning('Preencha todos os campos.');
       return;
     }
-
     let data = { nome, email, password, telefone, cpf, dataNascimento };
     await signUp(data);
   }
@@ -65,9 +64,8 @@ export default function SignUp() {
               <FormGroup label="Senha: " type="password" for="inputPassword" placeholder="Sua senha"
                 id="inputPassword" value={password} onChange={ e => setPassword(e.target.value) } />
 
-              <button className='btn btn-info'
-                type='submit' style={{ width: '100%'}}>
-                  Cadastrar
+              <button className='btn btn-info' type='submit' style={{ width: '100%'}}>
+                Cadastrar
               </button>
 
               <div className='link'>

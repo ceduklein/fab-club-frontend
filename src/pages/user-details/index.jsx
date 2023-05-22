@@ -36,9 +36,7 @@ export default function UserDetails({ user }) {
     handleUpdate(data, id);   
   }
 
-  const callHandleDelete = () => {
-    handleDelete(id);
-  }
+  const callHandleDelete = () => handleDelete(id);
 
   const callHandleChangePassword = () => {
     let passwordData = { oldPassword, password, passwordConfirmation };
@@ -46,7 +44,6 @@ export default function UserDetails({ user }) {
   }
 
   const handleCloseDialog = () => setShowDialog(false);
-
   const handleClosePasswordDialog = () => setShowPasswordDialog(false);
 
   const contentModal = `Após confirmação, todos seus dados serão apagados e sua conta será excluída.`;
@@ -64,25 +61,19 @@ export default function UserDetails({ user }) {
             <form onSubmit={ callHandleUpdate }>
               <FormGroup label="Id: "type="text" for="inputId" 
                 id="inputId" value={id} disabled={true} onChange={ () => {} } />
-
               <FormGroup label="Nome: "type="text" for="inputNome"
                 id="inputNome" value={nome} onChange={ e => setNome(e.target.value) } />
-
               <FormGroup label="Email: " type="email" for="inputEmail" 
                 id="inputEmail" value={email} onChange={ e => setEmail(e.target.value) } />
-              
               <FormGroup label="CPF: "type="text" for="inputCpf"
                 id="inputCpf" value={cpf} disabled={true} onChange={ () => {} } />
-
               <FormGroup label="Telefone: "type="text" for="inputTel"
-                id="inputTel" value={telefone} onChange={ e => setTelefone(e.target.value) } />
-              
+                id="inputTel" value={telefone} onChange={ e => setTelefone(e.target.value) } />            
               <FormGroup label="Data de Nascimento: "type="date" for="inputData" placeholder=""
                 id="inputData" value={dataNascimento} onChange={ () => {} } disabled={true} />
-
               <button className='btn btn-info'
                 type='submit' style={{ width: '100%', fontSize: '1rem' }}>
-                  <FiSave size={20} /> Salvar Alterações
+                <FiSave size={20} /> Salvar Alterações
               </button>
 
               <div className={styles.footerButtons}>
@@ -90,19 +81,16 @@ export default function UserDetails({ user }) {
                   style={{fontSize: '1rem', width: '30%'}}>
                   <FiArrowLeftCircle size={20} style={{ marginTop: '-5px' }} /> Voltar
                 </a>
-
                 <a className="btn btn-danger" type="button" onClick={ () => setShowDialog(true) }
                   style={{ fontSize: '1rem', width: '30%', marginLeft: '5%' }}>
                   <FiTrash2 size={20} style={{ marginTop: '-5px' }} /> Excluir Conta
                 </a>
-
                 <a className="btn btn-success" type="button" 
                   onClick={ () => setShowPasswordDialog(true) } 
                   style={{ fontSize: '1rem', marginLeft: '5%', width: '30%' }}>
                   <TbArrowsExchange size={20} style={{ marginTop: '-5px' }} /> Alterar Senha
                 </a>
               </div>
-
             </form>
           </Card>
 
@@ -114,19 +102,15 @@ export default function UserDetails({ user }) {
             closeDialog={ handleClosePasswordDialog } showChildren={ true }
             showDialog={ showPasswordDialog } onConfirm={ callHandleChangePassword }
             confirmButtonText='Alterar' closeButtonText='Cancelar' >
-
               <FormGroup label="Senta atual: "type="password" for="inputSat"
                 id="inputSat" value={ oldPassword } 
                 onChange={ e => setOldPassword(e.target.value) } />
-
               <FormGroup label="Nova senha: "type="password" for="inputSnv"
                 id="inputSnv" value={ password } 
                 onChange={ e => setPassword(e.target.value) } />
-
               <FormGroup label="Senta atual: "type="password" for="inputScf"
                 id="inputScf" value={ passwordConfirmation } 
-                onChange={ e => setPasswordConfirmation(e.target.value) } />  
-
+                onChange={ e => setPasswordConfirmation(e.target.value) } />
           </Modal>    
         </div>
       </div>
@@ -137,12 +121,7 @@ export default function UserDetails({ user }) {
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const api = setupApiClient(ctx);
   const { '@auth.userId': id } = parseCookies(ctx);
-
   const response = await api.get(`/usuarios/${id}`);
 
-  return {
-    props: {
-       user: response.data
-    }
-  }
+  return { props: { user: response.data } }
 });

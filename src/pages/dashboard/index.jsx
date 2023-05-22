@@ -7,12 +7,12 @@ import { parseCookies } from "nookies";
 import styles from './style.module.scss';
 
 import { canSSRAuth } from "@/utils/canSSRAuth"
+import { setupApiClient } from "@/services/api";
 
 import { NavBar } from "@/components/NavBar";
 import logoImg from '../../../public/logo.png'
 import { Card } from "@/components/Card";
 import { Agenda, Biografia, Discografia } from "./conteudo";
-import { setupApiClient } from "@/services/api";
 
 export default function Dashboard({ user }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,7 +30,7 @@ export default function Dashboard({ user }) {
       <div className="container" style={{ position: 'relative', width: '100%' }}>
         <div className={styles.containerDashboard} >
           <Image alt="Logo Fulano&Beltrano" src={logoImg}/>
-          <Card title={`Olá, ${ firstName }. Bem vindo ao Fã Clube!`}>
+          <Card title={`Olá, ${ firstName }. Bem vinda(o) ao Fã Clube!`}>
             <TabView activeIndex={activeIndex} onTabChange={ e => setActiveIndex(e.index)}>
               <TabPanel header="Biografia">
                 <Biografia />
@@ -53,12 +53,7 @@ export default function Dashboard({ user }) {
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const api = setupApiClient(ctx);
   const { '@auth.userId': id } = parseCookies(ctx);
-
   const response = await api.get(`/usuarios/${id}`);
 
-  return {
-    props: {
-      user: response.data
-    }
-  }
+  return { props: { user: response.data } }
 });

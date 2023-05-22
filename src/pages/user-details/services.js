@@ -2,15 +2,13 @@ import { toast } from "react-toastify";
 import Router from "next/router";
 
 import { setupApiClient } from "@/services/api"
-import { setSessionItem } from "@/utils/sessionStorage";
 import { signOut } from "@/context/AuthContext";
 
 const api = setupApiClient();
 
 export const handleUpdate = async(data, id) => {
   try {
-    const response = await api.put(`usuarios/${id}`, data);
-    setSessionItem(response.data);
+    await api.put(`usuarios/${id}`, data);
     toast.success('Cadastro atualizado com sucesso');
     Router.push('/');
   } catch(err) {

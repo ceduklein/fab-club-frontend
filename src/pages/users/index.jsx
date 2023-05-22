@@ -10,30 +10,43 @@ import { canSSRAuth } from "@/utils/canSSRAuth";
 import { setupApiClient } from "@/services/api";
 import { Table } from '@/components/Table';
 import { Modal } from '@/components/Modal';
+import { toast } from 'react-toastify';
 
 export default function Users({ users, admin_id }) {
   const [usersList, setUsersList] = useState(users);
   const [editedUser, setEditedUser] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
-  const [showDoCardModal, setShowDoCardModal] = useState(false);
-  const [showSendCardModal, setShowSendCardModal] = useState(false);
-  const [msg, setMsg] = useState('');
+  const handleCloseModal = () => setShowModal(false);
 
-  const handleCloseModal = () => {
-    setShowDoCardModal(false);
-    setShowSendCardModal(false);
-  }
-
-  const handleShowDoCardModal = (u) => {
+  const handleShowModal = (u) => {
     setEditedUser(u);
-    setShowDoCardModal(true);
+    setShowModal(true);
   }
 
   const elementsModal = () => {
     return(
-      <p>Confirma a emissão de carteirinha para o usuário abaixo?<br />
+      <p>{ !editedUser.admin ? `Conceder permissões de administrador para o usuário abaixo?` : 
+      `Remover permissões de admnistrador para o usuário abaixo?` }<br />
         <strong>Id: { editedUser.id } <br />Nome: { editedUser.nome }</strong></p>
     )
+  }
+
+  const handleChangeCredentials = async () => {
+    const api = setupApiClient();
+    try {
+      await api.patch(`/usuarios/permissoes/${editedUser.id}`, { admin_id });
+
+      const response = await api.get(`/usuarios`, { params: { admin_id } });
+      setUsersList(response.data);
+      
+      toast.success('Credencial alterada.');
+      handleCloseModal();
+    } catch (err) {
+      console.log(err);
+      toast.error('Erro ao alterar credencial.');
+      handleCloseModal();
+    }
   }
 
   return(
@@ -46,17 +59,15 @@ export default function Users({ users, admin_id }) {
       <div className="container" style={{ position: 'relative', width: '100%' }}>
         <div className={styles.containerUsersList} >
           <Card title='Lista de Usuários'>
-            <Table data={usersList} onClickDo={handleShowDoCardModal} />
+            <Table data={usersList} onClickEdit={handleShowModal} listUser={true} />
           </Card>
 
-          <Modal content={msg} title='Emissão de Carteirinha' closeDialog={handleCloseModal}
-            showDialog={showDoCardModal} showChildren={true}
+          <Modal title='Alterar Credencial' closeDialog={handleCloseModal}
+            showDialog={showModal} showChildren={true} onConfirm={handleChangeCredentials}
             confirmButtonText='Sim' closeButtonText='Não' >
               { elementsModal() }
           </Modal>
         </div>
-
-        
       </div>
     </>
   )
@@ -65,13 +76,7 @@ export default function Users({ users, admin_id }) {
 export const getServerSideProps = canSSRAuth(async(ctx) => {
   const api = setupApiClient(ctx);
   const { '@auth.userId': id } = parseCookies(ctx);
- 
   const response = await api.get(`/usuarios`, { params: { admin_id: id } });
 
-  return {
-    props: {
-      users: response.data,
-      admin_id: id
-    }
-  }
-})
+  return { props: { users: response.data, admin_id: id } }
+});

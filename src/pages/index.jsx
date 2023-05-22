@@ -26,7 +26,6 @@ export default function Home() {
       toast.warning('Preencha todos os campos.');
       return;
     }
-
     await signIn(email, password);
   }
 
@@ -50,15 +49,13 @@ export default function Home() {
                 placeholder="Sua senha" id="inputPassword"
                 value={password} onChange={ e => setPassword(e.target.value) } />
 
-              <button className='btn btn-info'
-                type='submit' style={{ width: '100%'}}>
+              <button className='btn btn-info' type='submit' style={{ width: '100%'}}>
                 Acessar
               </button>
 
               <div className='link'>
                 <Link className={styles.link} href='/signup'>Não possui uma conta? Cadastre-se</Link>
               </div>
-
             </form>
           </Card>
         </div>
@@ -68,7 +65,5 @@ export default function Home() {
 }
 
 export const getServerSideProps = canSSRGuest(async (ctx) => {
-  return {
-    props: {}
-  }
+  return { props: {} }
 });

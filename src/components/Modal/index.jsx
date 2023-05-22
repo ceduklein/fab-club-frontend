@@ -27,7 +27,7 @@ export function Modal(props) {
   }
 
   return(
-    <div className="card flex justify-content-center" style={{  }}>
+    <div className="card flex justify-content-center">
       <Dialog header={ dialogHeader } 
         visible={ showDialog } 
         style={{ width: '50vw' }} 
