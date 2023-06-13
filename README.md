@@ -1,38 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Projeto Fã Clube - FrontEnd (React/NextJS)
 
-## Getting Started
+Projeto Aplicado III - 4ª Fase de Análise e Desenvolvimento de Sistemas SENAI
 
-First, run the development server:
+## Gerenciamento de carteirinhas para fã-clube
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Descrição Resumida
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Desenvolver um sistema para que os fãs possam se inscrever em um fã-clube e permitir que os responsáveis pelo fã-clube gerem a carteirinha de fã e a enviem para os solicitantes.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Benefícios Esperados
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Com esse projeto, objetiva-se reduzir o tempo da geração de carteirinhas do fã-clube, processo esse que hoje é feito de forma manual, e diminuir custos com sua impressão, já que será gerada de forma digital.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Detalhamento
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+O fã-clube (ocultar informação) está em fase de crescimento, com novos membros toda semana, e o gerenciamento do processo para gerar as carteirinhas de fã está crescendo em complexidade. Por isso, a criadora do fã-clube deseja que seja criado um sistema web para apoiar esse gerenciamento. O sistema é composto de duas partes: site e área de administração. 
 
-## Learn More
+O site, que possui o intuito de divulgar o fã-clube e facilitar a adesão de novos fãs, deve ter 3 páginas: a página inicial (para divulgação do fã-clube), uma página de conteúdo (para curiosidades sobre o artista) e outra com formulário para inscrição no fã-clube.
 
-To learn more about Next.js, take a look at the following resources:
+A área de administração deve ter acesso aos registros de inscrição no fã-clube, para permitir o controle da criação das carteirinhas (feitas externamente em um software de edição de imagens), para que se possa indicar as carteirinhas a solicitar, as que foram solicitadas, as que foram produzidas, e as que foram enviadas ao solicitante.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Restrições
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Não poderá utilizar recursos de alto custo na aplicação e infraestrutura.
+## API
+A api para rodar em conjunto com este projeto está disponível no repositório abaixo:
 
-## Deploy on Vercel
+[Fã Clube api](https://github.com/ceduklein/fan-club-api)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Preparação do ambiente
+* Api instalada e configurada (você encontra o repositório da api no link acima)
+* Gerenciador de pacotes Yarn
+* Após clonar o repositório, executar o comando `yarn` para instalar as dependências necessárias.
+* Executar `yarn dev` para rodar o projeto em ambiente local.

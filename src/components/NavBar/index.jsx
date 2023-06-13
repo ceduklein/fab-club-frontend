@@ -51,6 +51,9 @@ export function NavBar() {
             <li className="nav-item" style={{marginLeft: '10%'}}>
               <a className="nav-link" href="/card-requests">Solicitações</a>
             </li>
+            <li className="nav-item" style={{marginLeft: '10%'}}>
+              <a className="nav-link" href="/card">Carteirinha</a>
+            </li>
             </>
 
           ) : (
@@ -62,7 +65,7 @@ export function NavBar() {
               </a>
             </li>
             <li className="nav-item" style={{marginLeft: '10%'}}>
-              <a className="nav-link" href="#">Carteirinha</a>
+              <a className="nav-link" href="/card">Carteirinha</a>
             </li>
             </>
           
